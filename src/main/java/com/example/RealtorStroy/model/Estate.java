@@ -12,8 +12,9 @@ public class Estate {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
+    private String price;
     @Lob
-    private Blob photo;
+    private byte[] photo;
 
     private LocalDateTime createdDate;
     @ManyToOne
@@ -25,6 +26,15 @@ public class Estate {
 
     public Estate setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public Estate setPrice(String price) {
+        this.price = price;
         return this;
     }
 
@@ -46,11 +56,11 @@ public class Estate {
         return this;
     }
 
-    public Blob getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public Estate setPhoto(Blob photo) {
+    public Estate setPhoto(byte[] photo) {
         this.photo = photo;
         return this;
     }

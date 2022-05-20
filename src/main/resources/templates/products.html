@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
   <head>
 
@@ -44,25 +44,28 @@ https://templatemo.com/tm-546-sixteen-clothing
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Sixteen <em>Clothing</em></h2></a>
+          <a class="navbar-brand" href="index"><h2>Realtor <em>Stroy</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Home
+                <a class="nav-link" href="index">Home
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
               <li class="nav-item active">
-                <a class="nav-link" href="products.html">Our Products</a>
+                <a class="nav-link" href="products">Our Products</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
+                <a class="nav-link" href="about">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="addproducts">Add products</a>
               </li>
             </ul>
           </div>
@@ -102,12 +105,13 @@ https://templatemo.com/tm-546-sixteen-clothing
             <div class="filters-content">
                 <div class="row grid">
                     <div class="col-lg-4 col-md-4 all des">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_01.jpg" alt=""></a>
+                      <article th:each="estate:${estates}" class="product-item">
+
+                        <a href="#"><img th:src="@{/estate-img/{id}(id=${estate.id})}" src="assets/images/product_01.jpg" alt="Image"></a>
                         <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$18.25</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
+                          <a href="#"><h4 th:text="${estate.title}">Tittle goes here</h4></a>
+                          <h6>$25.75</h6>
+                          <p th:text="estate.content">Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
                           <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
@@ -115,9 +119,9 @@ https://templatemo.com/tm-546-sixteen-clothing
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                           </ul>
-                          <span>Reviews (12)</span>
+                          <span>Reviews (24)</span>
                         </div>
-                      </div>
+                      </article>
                     </div>
                     <div class="col-lg-4 col-md-4 all dev">
                       <div class="product-item">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
   <head>
 
@@ -56,13 +56,16 @@ https://templatemo.com/tm-546-sixteen-clothing
                 </a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="products.html">Our Products</a>
+                <a class="nav-link" href="products">Our Products</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
+                <a class="nav-link" href="about">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="addproducts">Add products</a>
               </li>
             </ul>
           </div>
@@ -106,12 +109,13 @@ https://templatemo.com/tm-546-sixteen-clothing
             </div>
           </div>
           <div class="col-md-4">
-            <div class="product-item">
-              <a href="#"><img src="assets/images/product_01.jpg" alt=""></a>
+            <article th:each="estate:${estates}" class="product-item">
+
+              <a href="#"><img th:src="@{/estate-img/{id}(id=${estate.id})}" src="assets/images/product_01.jpg" alt="Image"></a>
               <div class="down-content">
-                <a href="#"><h4>Tittle goes here</h4></a>
-                <h6>$25.75</h6>
-                <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
+                <a href="#"><h4 th:text="${estate.title}">Tittle goes here</h4></a>
+                <h6 th:text="${estate.price}">$25.75</h6>
+                <p th:text="estate.content">Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
                 <ul class="stars">
                   <li><i class="fa fa-star"></i></li>
                   <li><i class="fa fa-star"></i></li>
@@ -119,9 +123,8 @@ https://templatemo.com/tm-546-sixteen-clothing
                   <li><i class="fa fa-star"></i></li>
                   <li><i class="fa fa-star"></i></li>
                 </ul>
-                <span>Reviews (24)</span>
               </div>
-            </div>
+            </article>
           </div>
           <div class="col-md-4">
             <div class="product-item">
@@ -220,26 +223,6 @@ https://templatemo.com/tm-546-sixteen-clothing
 
 
 
-    <div class="call-to-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="inner-content">
-              <div class="row">
-                <div class="col-md-8">
-                  <h4>Creative &amp; Unique <em>Sixteen</em> Products</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque corporis amet elite author nulla.</p>
-                </div>
-                <div class="col-md-4">
-                  <a href="#" class="filled-button">Purchase Now</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     
     <footer>
       <div class="container">
@@ -279,7 +262,6 @@ https://templatemo.com/tm-546-sixteen-clothing
           }
       }
     </script>
-
 
   </body>
 
