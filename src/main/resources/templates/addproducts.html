@@ -1,39 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Post</title>
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:fragment="editForm" id="editEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form th:if="${editAuthor}" th:object="${editAuthor}" th:action="@{/addauthor}" th:method="post">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Author</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <input type="hidden" name="id" th:field="*{id}" required>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" th:field="*{firstName}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Surname</label>
-                        <input type="text" class="form-control" th:field="*{lastName}" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Save">
-                </div>
-            </form>
+<!-- Header -->
+<header class="">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index"><h2>Realtor <em>Stroy</em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products">Our Products</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" href="about">About Us</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" href="contact">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addproducts">Add products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" sec:authorize="isAuthenticated()" >Logout</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="tm-nav-item" th:classappend="${#httpServletRequest.requestURI== #httpServletRequest.contextPath + '/admin'} ? active"><a th:href="@{/admin}" href="post.html" class="tm-nav-link">
+                        <i class="fas fa-ad"></i>
+                        Admin
+                    </a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')" class="tm-nav-item" th:classappend="${#httpServletRequest.requestURI== #httpServletRequest.contextPath + '/admin'} ? active"><a th:href="@{/admin}" href="post.html" class="tm-nav-link">
+                        <i class="fas fa-ad"></i>
+                        User
+                    </a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</div>
+    </nav>
+</header>
+<div class="container-fluid">
+    <main class="tm-main">
+        <!-- Search form -->
+        <div class="send-message">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>Add estate</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="contact-form">
+                            <form id="contact" method="post" th:action="@{/savepost}" enctype="multipart/form-data" th:object="${newEstate}">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" th:field="*{title}" type="text" placeholder="Title" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <input type="file" name="photofile" id="photo" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <textarea class="form-control" th:field="*{content}" type="text" placeholder="Estate content" required></textarea>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <textarea class="form-control" th:field="*{price}" type="text" placeholder="price estate" required></textarea>
+                                    </div>
+                                    <div class="col-lg-12">
 
+                                        <button id="form-submit" class="tm-search-button" type="submit">Send Message<i class="fas fa-ad tm-search-icon" aria-hidden="true"></i></button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="row tm-row">
+
+        </footer>
+    </main>
+</div>
 
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
 
 @Controller
 public class MainController {
@@ -45,14 +46,11 @@ public class MainController {
     }
 
     @GetMapping("products")
-    public String products() {
+    public String products(Model model) {
+        model.addAttribute("estates",estateRepo.findAll());
         return "products";
     }
 
-    @GetMapping("addproducts")
-    public String addproducts() {
-        return "addproducts";
-    }
 
     @GetMapping("estate/{id}")
     public String estate(@PathVariable("id") Long id, Model model) {
@@ -67,6 +65,12 @@ public class MainController {
         model.addAttribute("estates",estateRepo.findAll());
         return "index";
     }
+    @GetMapping("addproducts")
+    public String createPost(Model model) {
+        Estate newEstate = new Estate().setCreatedDate(LocalDateTime.now());
+        model.addAttribute("newEstate",newEstate);
+        return "addproducts";
+    }
 
     @PostMapping(value = "savepost", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String savePost(
@@ -75,14 +79,13 @@ public class MainController {
             Principal principal
     ) {
         estateRepo.save(estate);
-        /*try {
-            estate.setPhoto(photo.getBytes())
-                    .setCreatedBy(userService.getUserByUsername(principal.getName()));
+        try {
+            estate.setPhoto(photo.getBytes());
             estateRepo.save(estate);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
-        return "redirect:/";
+        }
+        return "redirect:/products";
     }
 
 }

@@ -9,17 +9,14 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(unique = true)
-    private String username;
     private String firstName;
     private String lastName;
-    @Lob
-    private Blob photo;
+    @Column(unique = true)
+    private String username;
+    private String password;
 
-    @OneToMany(mappedBy = "publishedBy")
-    private Set<Estate> publishedEstates;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public Long getId() {
@@ -28,6 +25,15 @@ public class User {
 
     public User setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
         return this;
     }
 
@@ -58,23 +64,7 @@ public class User {
         return this;
     }
 
-    public Blob getPhoto() {
-        return photo;
-    }
 
-    public User setPhoto(Blob photo) {
-        this.photo = photo;
-        return this;
-    }
-
-    public Set<Estate> getPublishedEstates() {
-        return publishedEstates;
-    }
-
-    public User setPublishedEstates(Set<Estate> publishedEstates) {
-        this.publishedEstates = publishedEstates;
-        return this;
-    }
 
     public Set<Role> getRoles() {
         return roles;
