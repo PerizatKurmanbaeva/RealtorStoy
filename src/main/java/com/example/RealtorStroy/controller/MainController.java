@@ -62,7 +62,7 @@ public class MainController {
 
     @GetMapping
     public String home(Model model) {
-        model.addAttribute("estates",estateRepo.findAll());
+        //model.addAttribute("estates",estateRepo.findAll());
         return "index";
     }
     @GetMapping("addproducts")
@@ -87,5 +87,4 @@ public class MainController {
         }
         return "redirect:/products";
     }
-
 }

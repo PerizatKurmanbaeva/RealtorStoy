@@ -10,47 +10,7 @@
 </head>
 <body>
 <!-- Header -->
-<header class="">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="index"><h2>Realtor <em>Stroy</em></h2></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="products">Our Products</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link" href="about">About Us</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link" href="contact">Contact Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="addproducts">Add products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout" sec:authorize="isAuthenticated()" >Logout</a>
-                    </li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="tm-nav-item" th:classappend="${#httpServletRequest.requestURI== #httpServletRequest.contextPath + '/admin'} ? active"><a th:href="@{/admin}" href="post.html" class="tm-nav-link">
-                        <i class="fas fa-ad"></i>
-                        Admin
-                    </a></li>
-                    <li sec:authorize="hasRole('ROLE_USER')" class="tm-nav-item" th:classappend="${#httpServletRequest.requestURI== #httpServletRequest.contextPath + '/admin'} ? active"><a th:href="@{/admin}" href="post.html" class="tm-nav-link">
-                        <i class="fas fa-ad"></i>
-                        User
-                    </a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<header th:replace="frag::header" class="">
 </header>
 <div class="container-fluid">
     <main class="tm-main">
@@ -81,7 +41,7 @@
                                     </div>
                                     <div class="col-lg-12">
 
-                                        <button id="form-submit" class="tm-search-button" type="submit">Send Message<i class="fas fa-ad tm-search-icon" aria-hidden="true"></i></button>
+                                        <button id="form-submit" class="tm-search-button" type="submit">Submit<i class="fas fa-ad tm-search-icon" aria-hidden="true"></i></button>
 
                                     </div>
                                 </div>
