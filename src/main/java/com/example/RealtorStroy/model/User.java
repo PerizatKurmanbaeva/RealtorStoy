@@ -19,6 +19,13 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "roles=" + roles +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }
@@ -63,6 +70,7 @@ public class User {
         this.lastName = lastName;
         return this;
     }
+
 
 
 

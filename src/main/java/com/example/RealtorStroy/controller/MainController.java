@@ -1,7 +1,11 @@
 package com.example.RealtorStroy.controller;
 
 import com.example.RealtorStroy.model.Estate;
+import com.example.RealtorStroy.model.Role;
+import com.example.RealtorStroy.model.User;
 import com.example.RealtorStroy.model.repository.EstateRepo;
+import com.example.RealtorStroy.model.repository.UserRepo;
+import com.example.RealtorStroy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -13,12 +17,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Controller
 public class MainController {
 
     @Autowired
     EstateRepo estateRepo;
+    @Autowired
+    UserRepo userRepo;
+    @Autowired
+    UserService userService;
+    Role role_user= new Role(("ROLE_USER"));
 
     @GetMapping(
             produces = MediaType.IMAGE_JPEG_VALUE,
@@ -51,6 +61,12 @@ public class MainController {
         return "products";
     }
 
+    @GetMapping("users")
+    public String users(Model model) {
+        model.addAttribute("users",userRepo.findAll());
+        return "users";
+    }
+
 
     @GetMapping("estate/{id}")
     public String estate(@PathVariable("id") Long id, Model model) {
@@ -66,11 +82,19 @@ public class MainController {
         return "index";
     }
     @GetMapping("addproducts")
-    public String createPost(Model model) {
-        Estate newEstate = new Estate().setCreatedDate(LocalDateTime.now());
+    public String addProducts(Model model) {
+        Estate newEstate = new Estate();
         model.addAttribute("newEstate",newEstate);
         return "addproducts";
     }
+
+    @GetMapping("addusers")
+    public String addUser(Model model) {
+        User newUser = new User();
+        model.addAttribute("newUser",newUser);
+        return "adduser";
+    }
+
 
     @PostMapping(value = "savepost", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String savePost(
@@ -78,7 +102,6 @@ public class MainController {
             @RequestPart("photofile") MultipartFile photo,
             Principal principal
     ) {
-        estateRepo.save(estate);
         try {
             estate.setPhoto(photo.getBytes());
             estateRepo.save(estate);
@@ -86,5 +109,16 @@ public class MainController {
             throw new RuntimeException(e);
         }
         return "redirect:/products";
+    }
+
+    @PostMapping(value = "saveuser", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String saveUsers(
+            @ModelAttribute User user,
+            Principal principal
+    ) {
+        user.setRoles(Set.of(role_user));
+        userService.saveUser(user);
+
+        return "redirect:/users";
     }
 }

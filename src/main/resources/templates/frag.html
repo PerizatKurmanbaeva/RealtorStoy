@@ -67,6 +67,12 @@
                         <a class="nav-link" href="addproducts" sec:authorize="hasRole('ROLE_ADMIN')">Add products</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="addusers" sec:authorize="hasRole('ROLE_ADMIN')">Add user</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="users" sec:authorize="hasRole('ROLE_ADMIN')">Users</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/logout" sec:authorize="isAuthenticated()" >Logout</a>
                     </li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')" class="tm-nav-item" th:classappend="${#httpServletRequest.requestURI== #httpServletRequest.contextPath + '/admin'} ? active"><a th:href="@{/admin}" href="post.html" class="tm-nav-link">

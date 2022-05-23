@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(new String[]{"/addproducts","/savepost", "/products"}).authenticated()
-                .antMatchers("/addproducts").hasAuthority("ROLE_ADMIN") // .hasRole(ADMIN) // hasRole will automatically add prefix ROLE_
+                .antMatchers("/addproducts", "/users").hasAuthority("ROLE_ADMIN") // .hasRole(ADMIN) // hasRole will automatically add prefix ROLE_
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
